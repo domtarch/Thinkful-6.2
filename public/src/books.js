@@ -21,14 +21,37 @@ function findBookById(books, id) {let foundBooks = books.find((book) => book.id 
 
 
 
+// function getBorrowersForBook(book, accounts) {
+//   return book.borrows
+//   .map((borrow) => {
+//    let account = accounts.find((account) => account.id === borrow.id);
+//    return { ...borrow, ...account };
+//   })
+//   .slice(0, 10);
+// }
+
 function getBorrowersForBook(book, accounts) {
-  return book.borrows
-  .map((borrow) => {
-   let account = accounts.find((account) => account.id === borrow.id);
-   return { ...borrow, ...account };
-  })
-  .slice(0, 10);
+  //go thru list people who borrows array 
+  //find matching id in accounts list 
+  //if id matches add to new array 
+let initalValue = []
+let accumualtor = (acc, borrow, i) => {
+  //acc new array
+  //return acc at end of function
+  let account = accounts.find((account) => account.id === borrow.id);
+    acc.push({ ...borrow, ...account });
+  
+  return acc
 }
+ 
+let result = book.borrows.reduce(accumualtor, initalValue)   
+
+  return result.slice(0,10);
+
+
+}
+
+
 
 module.exports = {
   findAuthorById,
